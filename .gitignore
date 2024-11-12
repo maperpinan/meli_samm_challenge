@@ -6,7 +6,7 @@ meli_sam_env_3_11_10/
 
 # Ignorar archivos de configuración sensibles
 .env
-config.py
+etl/config.json
 
 # Ignorar archivos Python compilados
 *.pyc

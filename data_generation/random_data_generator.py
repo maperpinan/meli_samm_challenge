@@ -64,7 +64,7 @@ class DataGenerator:
     def generate_tasks(self, num_tasks: int, projects: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         tasks = []
         
-        # Define las fechas de inicio y fin como objetos date para limitar el rango a solo desde agosto
+        # Define las fechas de inicio y fin como objetos date para limitar el rango a solo desdes Agosto
         start_date = date(2024, 6, 1)
         end_date = date(2024, 11, 10)
         
@@ -144,23 +144,23 @@ class DataGenerator:
         
         for _ in range(num_events):
             # Selecciona aleatoriamente una tarea o proyecto para el evento
-            item_type = random.choice(["item", "project"])
-            if item_type == "item":
-                item = random.choice(tasks)
+            task_type = random.choice(["task", "project"])
+            if task_type == "task":
+                task = random.choice(tasks)
             else:
-                item = random.choice(projects)
+                task = random.choice(projects)
                 
             activity = {
                 "id": str(self.fake.unique.random_number(digits=10)),
-                "object_type": item_type,
-                "object_id": item["id"],
+                "object_type": task_type,
+                "object_id": task["id"],
                 "event_type": random.choice(self.event_types),
                 "event_date": self.fake.date_time_between(
                     start_date=start_date,
                     end_date=end_date,
                     tzinfo=pytz.UTC
                 ).strftime("%Y-%m-%dT%H:%M:%S.000000Z"),
-                "parent_project_id": item.get("project_id") if item_type == "item" else item["id"],
+                "parent_project_id": task.get("project_id") if task_type == "task" else task["id"],
                 "initiator_id": str(self.fake.random_number(digits=7))
             }
             
