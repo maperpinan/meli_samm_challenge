@@ -1,0 +1,4 @@
+requests
+Faker
+pytz
+psycopg2

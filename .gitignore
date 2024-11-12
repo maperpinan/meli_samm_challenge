@@ -1,0 +1,17 @@
+# Ignorar entornos virtuales creados con pyenv
+.python-version
+
+# Ignorar entornos virtuales locales en general
+meli_sam_env_3_11_10/
+
+# Ignorar archivos de configuración sensibles
+.env
+config.py
+
+# Ignorar archivos Python compilados
+*.pyc
+__pycache__/
+
+# Ignorar carpetas de caché de editor y sistema operativo
+.idea/
+.vscode/
