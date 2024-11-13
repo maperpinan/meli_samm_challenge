@@ -1,0 +1,27 @@
+# Usa una imagen base de Python
+FROM python:3.11-slim
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Actualiza e instala libpq-dev (para psycopg2) y otras dependencias necesarias
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libpq-dev gcc && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copia el archivo de requirements para instalar dependencias de Python
+COPY requirements.txt .
+
+# Cambia `psycopg2` a `psycopg2-binary` en requirements.txt
+RUN sed -i 's/psycopg2/psycopg2-binary/g' requirements.txt
+
+# Instala las dependencias de Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia el resto del código
+COPY . .
+
+# Comando de inicio para el contenedor
+CMD ["python", "etl/load.py"]
+
+
