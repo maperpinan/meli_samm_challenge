@@ -10,19 +10,26 @@ config_path = os.path.join(os.path.dirname(__file__), 'config.json')
 with open(config_path) as config_file:
     config = json.load(config_file)
 
-# Configuracion de la base de datos
-db_config = config["database"]
+# Configuracion de la ruta del archivo de datos aleatorios
 output_path = config["output_path"]
 
-# Coneccion a la base de datos
+# Cargar configuración de la base de datos desde variables de entorno
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST')
+DB_PORT = os.getenv('DB_PORT')
+
+# Conexión a la base de datos
+conn = psycopg2.connect(
+    dbname=DB_NAME,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    host=DB_HOST,
+    port=DB_PORT
+)
+
 try:
-    conn = psycopg2.connect(
-        dbname=db_config["dbname"],
-        user=db_config["user"],
-        password=db_config["password"],
-        host=db_config["host"],
-        port=db_config["port"]
-    )
     cursor = conn.cursor()
 
     # Creacion de las tablas

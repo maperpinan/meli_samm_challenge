@@ -12,7 +12,7 @@ output_path = config["output_path"]
 
 # Generacion de los datos aleatorios
 generator = DataGenerator()
-data = generator.generate_sample_data(num_projects=200, num_tasks=800, num_events=5000)
+data = generator.generate_sample_data(num_projects=500, num_tasks=3000, num_events=80000)
 
 # Guardar los datos como un archivo JSON
 with open(output_path + '/data.json', 'w') as f:
