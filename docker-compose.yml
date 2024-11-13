@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+
+  etl:
+    build:
+      context: .  # Asegúrate de que esta sea la ubicación de Dockerfile.etl
+      dockerfile: Dockerfile.etl
+    depends_on:
+      - postgres
+    env_file: .env
+    command: ["python", "etl/load.py"]
+
+volumes:
+  postgres_data:
